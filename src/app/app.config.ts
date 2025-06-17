@@ -10,3 +10,5 @@ import { getDatabase, provideDatabase } from '@angular/fire/database';
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideFirebaseApp(() => initializeApp({ projectId: "guestlist-a26fb", appId: "1:923400574220:web:c689eaee95b6c023afe529", storageBucket: "guestlist-a26fb.firebasestorage.app", apiKey: "AIzaSyBQPF1pl4wJkGD6aYtjNEH9dRYAzcgeATo", authDomain: "guestlist-a26fb.firebaseapp.com", messagingSenderId: "923400574220" })), provideAuth(() => getAuth()), provideFirestore(() => getFirestore()), provideDatabase(() => getDatabase())]
 };
+
+

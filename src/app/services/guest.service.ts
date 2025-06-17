@@ -1,17 +1,27 @@
 import { Injectable } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
+import { collectionData, Firestore } from '@angular/fire/firestore';
 import { addDoc, collection } from 'firebase/firestore';
+import { Observable } from 'rxjs';
+import { Guest } from '../guest';
 
 @Injectable({
   providedIn: 'root'
 })
+
+
+
 export class GuestService {
 
   constructor(private firestore: Firestore) { }
 
-  addGuest(name: string, email: string, confirmed: boolean) {
+  getGuests(): Observable<Guest[]> {
     const guestRef = collection(this.firestore, 'guests');
-    return addDoc(guestRef, {
+    return collectionData(guestRef, { idField: 'id' }) as Observable<Guest[]>;
+  }
+
+  addGuest(name: string, email: string, confirmed: boolean) {
+    const guestRef = collection(this.firestore, 'guests');  // referenz erstellen mit collection
+    return addDoc(guestRef, {                               //addDoc() referenz, data
       name: name,
       email: email,
       confirmed: false

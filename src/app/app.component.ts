@@ -15,18 +15,23 @@ export class AppComponent {
   name: string = '';
   email: string = '';
 
-  constructor(private guestService: GuestService) { }
+  constructor(private guestService: GuestService) { }  // inject guestservice
 
-  addGuest() {
+  // Methode zum Hinzufügen
+  addGuests() {
+    //aufrufen der Methode im GuestService
     this.guestService.addGuest(this.name, this.email, false)
       .then(() => {
-        console.log('Guest added successfully');
         this.name = '';
         this.email = '';
+        console.log("Guest added");
       })
+      //Error Abfangen
       .catch((error: any) => {
-        console.error('Error adding guest: ', error);
+        console.error("Error adding guest:", error)
       });
   }
+
+
 }
 
