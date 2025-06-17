@@ -1,37 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { GuestService } from './services/guest.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { Observable } from 'rxjs';
+import { Guest } from './guest';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet, CommonModule, FormsModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   name: string = '';
   email: string = '';
+  guests$!: Observable<Guest[]>;
 
-  constructor(private guestService: GuestService) { }  // inject guestservice
+  constructor(private guestService: GuestService) { }
 
-  // Methode zum Hinzufügen
+  ngOnInit() {
+    this.guests$ = this.guestService.getGuests();
+  }
+
   addGuests() {
-    //aufrufen der Methode im GuestService
     this.guestService.addGuest(this.name, this.email, false)
       .then(() => {
         this.name = '';
         this.email = '';
         console.log("Guest added");
       })
-      //Error Abfangen
       .catch((error: any) => {
-        console.error("Error adding guest:", error)
+        console.error("Error adding guest:", error);
       });
   }
-
-
 }
 

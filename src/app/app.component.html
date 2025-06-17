@@ -5,4 +5,33 @@
 <input type="email" id="email" name="email" required [(ngModel)]="email" />
 
 <button (click)="addGuests()">Add Guest</button>
+
+<h2>Guestlist</h2>
+
+
+
+<!-- @if (guests$ | async as guests) {
+@for (guest of guests; track $index) {
+<p>
+  Name: {{ guest.name }}<br>
+  Email: {{ guest.email }}<br>
+  Confirmed: {{ guest.confirmed }}<br>
+  ID: {{ guest.id }}
+</p>
+}
+} -->
+
+<div *ngIf="guests$ | async as guests">
+  <div *ngFor="let guest of guests; index as i">
+    <p>
+      Name: {{ guest.name }}<br>
+      Email: {{ guest.email }}<br>
+      Confirmed: {{ guest.confirmed }}<br>
+      ID: {{ guest.id }}
+    </p>
+  </div>
+</div>
+
+
+
 <router-outlet />

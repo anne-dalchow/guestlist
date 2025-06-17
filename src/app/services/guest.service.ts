@@ -22,8 +22,8 @@ export class GuestService {
   addGuest(name: string, email: string, confirmed: boolean) {
     const guestRef = collection(this.firestore, 'guests');  // referenz erstellen mit collection
     return addDoc(guestRef, {                               //addDoc() referenz, data
-      name: name,
-      email: email,
+      name: name || 'undefind',
+      email: email || 'undefind',
       confirmed: false
     })
   }
